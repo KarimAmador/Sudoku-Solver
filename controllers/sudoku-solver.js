@@ -26,8 +26,23 @@ class SudokuSolver {
     return true;
   }
 
+  /**
+   * Function to check valid column placement for a value
+   * @param {String} puzzleString 
+   * @param {Number} row 
+   * @param {Number} column 
+   * @param {String} value 
+   */
   checkColPlacement(puzzleString, row, column, value) {
+    let colString = '';
+    for (let i = column - 1; i < 81; i += 9) {
+      colString += puzzleString[i];
+    }
+    console.log(colString);
 
+    if (colString.includes(value)) return false;
+
+    return true;
   }
 
   checkRegionPlacement(puzzleString, row, column, value) {
