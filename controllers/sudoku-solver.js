@@ -45,8 +45,27 @@ class SudokuSolver {
     return true;
   }
 
+  /**
+   * Function to check valid region placement for a value
+   * @param {String} puzzleString 
+   * @param {Number} row 
+   * @param {Number} column 
+   * @param {String} value 
+   */
   checkRegionPlacement(puzzleString, row, column, value) {
+    let region = [];
+    let cellIndex = column + row * 9;
+    let regionIndex = (cellIndex - cellIndex % 3) - (row % 3 * 9);
 
+    while (region.length < 9) {
+      for (let i = 0; i < 3; i++) {
+        region.push(puzzleString[regionIndex + i]);
+      }
+      regionIndex += 9;
+    }
+    console.log(region);
+
+    return !region.includes(value);
   }
 
   solve(puzzleString) {
