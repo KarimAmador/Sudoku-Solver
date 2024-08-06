@@ -21,9 +21,7 @@ class SudokuSolver {
     const rowString = puzzleString.slice(row * 9, row * 9 + 9);
     console.log(rowString);
 
-    if (rowString.includes(value)) return false;
-    
-    return true;
+    return !rowString.includes(value);
   }
 
   /**
@@ -40,9 +38,7 @@ class SudokuSolver {
     }
     console.log(colString);
 
-    if (colString.includes(value)) return false;
-
-    return true;
+    return !colString.includes(value);
   }
 
   /**
