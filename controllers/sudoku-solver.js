@@ -17,7 +17,7 @@ class SudokuSolver {
    * @param {Number} column 
    * @param {String} value 
    */
-  checkRowPlacement(puzzleString, row, column, value) {
+  checkRowPlacement(puzzleString, row, value) {
     const rowString = puzzleString.slice(row * 9, row * 9 + 9);
     console.log(rowString);
 
@@ -31,7 +31,7 @@ class SudokuSolver {
    * @param {Number} column 
    * @param {String} value 
    */
-  checkColPlacement(puzzleString, row, column, value) {
+  checkColPlacement(puzzleString, column, value) {
     let colString = '';
     for (let i = column; i < 81; i += 9) {
       colString += puzzleString[i];
