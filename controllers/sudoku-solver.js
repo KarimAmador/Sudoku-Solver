@@ -17,11 +17,10 @@ class SudokuSolver {
    * @param {Number} column 
    * @param {String} value 
    */
-  checkRowPlacement(puzzleString, row, value) {
+  checkRowPlacement(puzzleString, row, column, value) {
     const rowString = puzzleString.slice(row * 9, row * 9 + 9);
-    console.log(rowString);
 
-    return !rowString.includes(value);
+    return !rowString.includes(value) || puzzleString[column + row * 9] === value;
   }
 
   /**
@@ -31,14 +30,13 @@ class SudokuSolver {
    * @param {Number} column 
    * @param {String} value 
    */
-  checkColPlacement(puzzleString, column, value) {
+  checkColPlacement(puzzleString, row, column, value) {
     let colString = '';
     for (let i = column; i < 81; i += 9) {
       colString += puzzleString[i];
     }
-    console.log(colString);
 
-    return !colString.includes(value);
+    return !colString.includes(value) || puzzleString[column + row * 9] === value;
   }
 
   /**
@@ -59,9 +57,8 @@ class SudokuSolver {
       }
       regionIndex += 9;
     }
-    console.log(region);
 
-    return !region.includes(value);
+    return !region.includes(value) || puzzleString[cellIndex] === value;
   }
 
   /**
@@ -76,8 +73,8 @@ class SudokuSolver {
     const col = nextEmpty % 9;
 
     return ([
-      this.checkRowPlacement(puzzleString, row, value),
-      this.checkColPlacement(puzzleString, col, value),
+      this.checkRowPlacement(puzzleString, row, col, value),
+      this.checkColPlacement(puzzleString, row, col, value),
       this.checkRegionPlacement(puzzleString, row, col, value)
     ].every((item) => item));
   }
@@ -87,12 +84,8 @@ class SudokuSolver {
    * @param {String} puzzleString 
    */
   solve(puzzleString) {
-    if (puzzleString.length < 81) {
-      return { error: 'Expected puzzle to be 81 characters long' };
-    }
-    if (!puzzleString.match(/^[1-9.]+$/)) {
-      return { error: 'Invalid characters in puzzle' };
-    }
+    let validation = this.validate(puzzleString);
+    if (validation !== true) return validation;
 
     let puzzle = puzzleString.split('');
 
