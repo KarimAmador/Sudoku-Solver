@@ -68,9 +68,9 @@ class SudokuSolver {
    * @param {String} value 
    * @returns {Boolean}
    */
-  checkValidPlacement(puzzleString, nextEmpty, value) {
-    const row = Math.floor(nextEmpty / 9);
-    const col = nextEmpty % 9;
+  checkValidPlacement(puzzleString, emptyCell, value) {
+    const row = Math.floor(emptyCell / 9);
+    const col = emptyCell % 9;
 
     return ([
       this.checkRowPlacement(puzzleString, row, col, value),
